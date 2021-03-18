@@ -107,4 +107,14 @@ function markRead() {
 
 function editBook() {
   console.log( 'in editBook' );
+  editMode();
 } // end editBook
+
+function editMode() {
+  console.log( 'in editMode' );
+  let el = $( '#formHeading' );
+  el.text( 'Edit the Book' );
+} // end editMode
+// switch inputs to edit mode and submit 
+
+// return inputs to add book mode
