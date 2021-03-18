@@ -54,5 +54,14 @@ router.delete( '/:id', ( req, res ) => {
   })
 })
 
-
+router.put( '/:id', ( req, res ) => {
+  console.log( 'books.router PUT', req.params );
+  let queryString =  `UPDATE "books" SET "isRead" = true WHERE "id"=$1`; 
+  pool.query( queryString, [ req.params.id ] ).then( ( results ) => {
+    res.sendStatus( 200 );
+  }).catch( ( err ) => {
+    console.log( err );
+    res.sendStatus( 500 );
+  }) 
+})
 module.exports = router;
