@@ -22,8 +22,7 @@ router.post('/',  (req, res) => {
   let newBook = req.body;
   console.log(`Adding book`, newBook);
 
-  let queryText = `INSERT INTO "books" ("author", "title")
-                   VALUES ($1, $2);`;
+  let queryText = `INSERT INTO "books" ("author", "title") VALUES ($1, $2);`;
   pool.query(queryText, [newBook.author, newBook.title])
     .then(result => {
       res.sendStatus(201);
@@ -43,6 +42,17 @@ router.post('/',  (req, res) => {
 // TODO - DELETE 
 // Removes a book to show that it has been read
 // Request must include a parameter indicating what book to update - the id
+
+router.delete( '/:id', ( req, res ) => {
+  console.log( 'books.router DELETE', req.params );
+  let queryString = `DELETE FROM "books" WHERE id=$1`;
+  pool.query( queryString, [ req.params.id ] ).then( ( results ) => {
+    res.sendStatus( 200 );
+  }).catch( ( err ) => {
+    console.log( err );
+    res.sendStatus( 500 );
+  })
+})
 
 
 module.exports = router;
